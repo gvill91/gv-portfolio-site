@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 560 235">
+
+  <!-- Dark background baked in — matches chart footer -->
+  <rect x="0" y="-10" width="560" height="235" fill="#2A3531"/>
+
+  <defs>
+    <clipPath id="gv-chart-clip">
+      <text
+        x="280" y="210"
+        text-anchor="middle"
+        font-family="'Arial Black', Impact, sans-serif"
+        font-weight="900"
+        font-size="280"
+      >GV</text>
+    </clipPath>
+  </defs>
+
+  <!-- White outline — thicker stroke for crispness when rasterized small -->
+  <text
+    x="280" y="210"
+    text-anchor="middle"
+    font-family="'Arial Black', Impact, sans-serif"
+    font-weight="900"
+    font-size="280"
+    fill="white"
+    stroke="white"
+    stroke-width="14"
+    stroke-linejoin="round"
+  >GV</text>
+
+  <!-- 7 stripes — same palette as navbar logo.svg, offset 5px for y=210 baseline -->
+  <rect x="0" y="10"    width="560" height="28.6" fill="#CD2922" clip-path="url(#gv-chart-clip)"/>
+  <rect x="0" y="38.6"  width="560" height="28.6" fill="#EC6C20" clip-path="url(#gv-chart-clip)"/>
+  <rect x="0" y="67.1"  width="560" height="28.6" fill="#F6A723" clip-path="url(#gv-chart-clip)"/>
+  <rect x="0" y="95.7"  width="560" height="28.6" fill="#FAC030" clip-path="url(#gv-chart-clip)"/>
+  <rect x="0" y="124.3" width="560" height="28.6" fill="#13A29C" clip-path="url(#gv-chart-clip)"/>
+  <rect x="0" y="152.9" width="560" height="28.6" fill="#0C7C7D" clip-path="url(#gv-chart-clip)"/>
+  <rect x="0" y="181.4" width="560" height="28.6" fill="#2A3531" clip-path="url(#gv-chart-clip)"/>
+
+</svg>

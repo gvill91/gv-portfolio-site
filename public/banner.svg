@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 150">
+
+  <!-- ── Left stripes: outer (dark) → inner (warm), 7 × 22px ── -->
+  <rect x="0"   y="0" width="22" height="150" fill="#2A3531"/>
+  <rect x="22"  y="0" width="22" height="150" fill="#0C7C7D"/>
+  <rect x="44"  y="0" width="22" height="150" fill="#13A29C"/>
+  <rect x="66"  y="0" width="22" height="150" fill="#CD2922"/>
+  <rect x="88"  y="0" width="22" height="150" fill="#EC6C20"/>
+  <rect x="110" y="0" width="22" height="150" fill="#F6A723"/>
+  <rect x="132" y="0" width="22" height="150" fill="#FAC030"/>
+
+  <!-- ── Center sandy field ── -->
+  <rect x="154" y="0" width="592" height="150" fill="#F5ECD7"/>
+
+  <!-- ── Right stripes: inner (warm) → outer (dark), 7 × 22px ── -->
+  <rect x="746" y="0" width="22" height="150" fill="#FAC030"/>
+  <rect x="768" y="0" width="22" height="150" fill="#F6A723"/>
+  <rect x="790" y="0" width="22" height="150" fill="#EC6C20"/>
+  <rect x="812" y="0" width="22" height="150" fill="#CD2922"/>
+  <rect x="834" y="0" width="22" height="150" fill="#13A29C"/>
+  <rect x="856" y="0" width="22" height="150" fill="#0C7C7D"/>
+  <rect x="878" y="0" width="22" height="150" fill="#2A3531"/>
+
+  <!-- ── Cross motifs in four corner spaces ── -->
+  <!-- Upper left -->
+  <polygon points="230,27 240,27 240,32 247,32 247,40 240,40 240,45 230,45 230,40 223,40 223,32 230,32" fill="#383838"/>
+  <!-- Upper right -->
+  <polygon points="660,27 670,27 670,32 677,32 677,40 670,40 670,45 660,45 660,40 653,40 653,32 660,32" fill="#383838"/>
+  <!-- Lower left -->
+  <polygon points="230,105 240,105 240,110 247,110 247,118 240,118 240,123 230,123 230,118 223,118 223,110 230,110" fill="#383838"/>
+  <!-- Lower right -->
+  <polygon points="660,105 670,105 670,110 677,110 677,118 670,118 670,123 660,123 660,118 653,118 653,110 660,110" fill="#383838"/>
+
+  <!-- ── Grey accent diamonds: above all four crosses ── -->
+  <polygon points="235,17 239,21 235,25 231,21" fill="#909090"/>
+  <polygon points="665,17 669,21 665,25 661,21" fill="#909090"/>
+  <polygon points="235,96 239,100 235,104 231,100" fill="#909090"/>
+  <polygon points="665,96 669,100 665,104 661,100" fill="#909090"/>
+
+  <!-- ── Warm cream diamonds below each cross ── -->
+  <polygon points="235,47 239,51 235,55 231,51" fill="#C8BAA0"/>
+  <polygon points="665,47 669,51 665,55 661,51" fill="#C8BAA0"/>
+  <polygon points="235,125 239,129 235,133 231,129" fill="#C8BAA0"/>
+  <polygon points="665,125 669,129 665,133 661,129" fill="#C8BAA0"/>
+
+  <!-- ── GV: dark trim behind white fill ── -->
+  <text
+    x="450"
+    y="129"
+    text-anchor="middle"
+    font-family="'Arial Black', Impact, sans-serif"
+    font-weight="900"
+    font-size="140"
+    fill="#C8BAA0"
+  >GV</text>
+
+</svg>

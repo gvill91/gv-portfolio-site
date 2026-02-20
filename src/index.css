@@ -1,0 +1,44 @@
+:root {
+  --bg:          #F5ECD7;
+  --bg-card:     #ffffff;
+  --bg-nav:      #2A3531;
+  --text:        #2A3531;
+  --text-muted:  #7A6E5D;
+  --accent:      #CD2922;
+  --accent-sec:  #13A29C;
+  --border:      #DDD0B8;
+  --max-w:       960px;
+
+  font-family: 'Wix Madefor Text', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--text);
+  background-color: var(--bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent-sec);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+ul {
+  list-style: none;
+}

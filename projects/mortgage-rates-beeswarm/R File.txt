@@ -1,0 +1,143 @@
+library(tidyverse)
+library(ggbeeswarm)
+library(showtext)
+library(EHRhelper)
+
+font_add(family="Prompt",
+         regular = "C:/Users/f400324/AppData/Local/Microsoft/Windows/Fonts/Prompt-Regular.TTF",
+         bold="C:/Users/f400324/AppData/Local/Microsoft/Windows/Fonts/Prompt-Bold.ttf",
+         italic="C:/Users/f400324/AppData/Local/Microsoft/Windows/Fonts/Prompt-Italic.ttf",
+)
+showtext_auto()
+showtext_opts(dpi=300)
+
+df <- read_csv("https://www.freddiemac.com/pmms/docs/PMMS_history.csv")
+
+floor_decade    = function(value){ return(value - value %% 10) }
+
+df2 <- df %>%
+  mutate(date=as.Date(date,format="%m/%d/%Y")) %>%
+  select(date,pmms30) %>%
+  filter(year(date)>1989) %>%
+  mutate(decade=paste0(floor_decade(year(date)),"s"),
+         year=year(date)) 
+
+df2_minmax <- df2 %>%
+  group_by(year) %>%
+  summarize(min_pmms30 = min(pmms30,na.rm=TRUE),
+         max_pmms30 = max(pmms30,na.rm=TRUE)) %>%
+  ungroup() 
+
+  
+
+theme_gv <- function(font="Prompt", bs=12,...){
+  theme_minimal(base_size=bs,base_family=font,...) +
+    theme(axis.text = element_text(color=fm_color_extract("grey4")),
+          axis.title = element_text(color=fm_color_extract("grey4")),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_line(size=0.15,colour = fm_color_extract("grey2")),
+          plot.margin = margin(0.05,0.05,0.05,0.05,"cm"),
+          plot.background = element_rect(fill="black", color=NA),
+          plot.title=element_text(size=rel(1.5),
+                                  face="bold",
+                                  hjust=0,
+                                  color=fm_color_extract("grey4"),
+                                  margin=margin(0,0,7,0)),
+          plot.subtitle = element_text(face="italic",
+                                       hjust=0,
+                                       color=fm_color_extract("grey4")),
+          plot.caption = element_text(hjust=1,
+                                      color=fm_color_extract("grey4")),
+          legend.text = element_text(color=fm_color_extract("grey4")))
+}
+
+ggplot(data=df2 %>% filter(year>2013),aes(x=pmms30,y=fct_rev(factor(year))))+
+  geom_beeswarm(aes(color=pmms30),
+                # color="black",
+                # shape=21,
+                method="hex",
+                size=1.5,
+                alpha=0.8,
+                cex = 1,
+                # show.legend = F,
+                corral.width = 1,
+                corral = 'none')+
+  # geom_quasirandom(aes(color=month(date)),#size=pmms30),
+  #                  alpha=0.7,dodge.width=1,size=2.5)+
+  scale_x_continuous(breaks = seq.int(1,10,1))+
+  scale_color_fm(palette="mixed",discrete=F)+
+  # scale_color_gradient(low="#F2F2F0",high = "#FF4D00")+
+  theme_gv(bs = 13)+
+  labs(y="Year",
+       x="PMMS 30Y Fixed Rate Mortgage",
+       title="Primary Mortgage Market Survey Mortgage Rate Dispersion by Year")
+  # ggplot2::coord_flip()
+  
+
+# Find the latest date's pmms30 value
+latest_date <- max(df2$date)
+latest_pmms30 <- df2 %>% filter(date == latest_date)
+
+set.seed(20250625)
+ggplot(data=df2 %>% filter(year>2014, date != latest_date),aes(x=pmms30,y=fct_rev(factor(year))))+
+  geom_rect(data = df2_minmax %>% filter(year > 2014), 
+            aes(xmin = min_pmms30, xmax = max_pmms30, 
+                ymin = as.numeric(fct_rev(factor(year))) - 0.4, 
+                ymax = as.numeric(fct_rev(factor(year))) + 0.4),
+            inherit.aes = FALSE, 
+            fill = "white", 
+            alpha=0.15,
+            color = NA) +
+  geom_quasirandom(aes(fill=pmms30,
+                       color=pmms30
+                       #size=pmms30
+                       ),
+                # color="black",
+                shape=21,
+                  method="quasirandom",
+                size=2.5,
+                alpha=0.75,#width = 0.4,bandwidth = 2,
+                cex = 1,
+                show.legend = F)+
+  geom_point(data = latest_pmms30, aes(x = pmms30, y = fct_rev(factor(year))), 
+             fill="white",
+             inherit.aes = FALSE, 
+             shape=21,
+             color = "white", 
+             # fill = "red",
+             size = 3,
+             show.legend=FALSE) +
+  geom_point(data = latest_pmms30, aes(x = pmms30, y = fct_rev(factor(year)),fill = pmms30), 
+             inherit.aes = FALSE, 
+             shape=21,
+             color = "white", 
+             # fill = "red",
+             size = 2.5,
+             show.legend=FALSE) +
+  annotate("text", x = latest_pmms30$pmms30 - 0.8, y = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.2, 
+           label = paste("Latest:",scales::percent(latest_pmms30$pmms30,scale=1,accuracy=0.01)),
+           hjust = 0, vjust = 1,color="white",family = "Prompt") +
+  geom_curve(aes(x = latest_pmms30$pmms30 - 0.4, y = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.2, 
+                 xend = latest_pmms30$pmms30, yend = as.numeric(fct_rev(factor(latest_pmms30$year)))),
+             curvature = -0.4, # Adjust curvature here
+             # arrow = arrow(length = unit(0.1, "cm")),
+             color = "white") +
+  # geom_quasirandom(aes(color=month(date)),#size=pmms30),
+  #                  alpha=0.7,dodge.width=1,size=2.5)+
+  # scale_x_continuous(breaks = seq.int(1,10,1))+
+  # hrbrthemes::scale_x_percent(scale=1,accuracy = 0.1,breaks = seq.int(1,10,0.5))+
+  # scale_color_gradient(low="#F2F2F0",high = "#FF4D00")+
+  scale_color_fm(palette = "mixed",discrete=FALSE)+
+  scale_fill_fm(palette = "mixed", discrete = FALSE) + # Ensure fill uses the same palette
+  theme_gv(bs = 13)+
+  theme(panel.grid.major = element_blank())+
+  labs(y="Year",
+       x="PMMS 30Y Fixed Rate Mortgage",
+       title="Primary Mortgage Market Survey Mortgage Rate Dispersion by Year")
+# ggplot2::coord_flip()
+
+ggsave("pmms_beeswarm_20251203.png",width = 11, height = 6,dpi = 300,bg="white",units="in")
+
+
+
+

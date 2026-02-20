@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 560 240">
+  <defs>
+    <clipPath id="gv-clip">
+      <text
+        x="280"
+        y="205"
+        text-anchor="middle"
+        font-family="'Arial Black', Impact, sans-serif"
+        font-weight="900"
+        font-size="280"
+      >GV</text>
+    </clipPath>
+  </defs>
+
+  <!-- White outline layer: drawn first so colored stripes sit on top -->
+  <text
+    x="280"
+    y="205"
+    text-anchor="middle"
+    font-family="'Arial Black', Impact, sans-serif"
+    font-weight="900"
+    font-size="280"
+    fill="white"
+    stroke="white"
+    stroke-width="14"
+    stroke-linejoin="round"
+  >GV</text>
+
+  <!-- 7 colored stripes clipped to letter shapes -->
+  <rect x="0" y="5"     width="560" height="28.6" fill="#CD2922" clip-path="url(#gv-clip)"/>
+  <rect x="0" y="33.6"  width="560" height="28.6" fill="#EC6C20" clip-path="url(#gv-clip)"/>
+  <rect x="0" y="62.1"  width="560" height="28.6" fill="#F6A723" clip-path="url(#gv-clip)"/>
+  <rect x="0" y="90.7"  width="560" height="28.6" fill="#FAC030" clip-path="url(#gv-clip)"/>
+  <rect x="0" y="119.3" width="560" height="28.6" fill="#13A29C" clip-path="url(#gv-clip)"/>
+  <rect x="0" y="147.9" width="560" height="28.6" fill="#0C7C7D" clip-path="url(#gv-clip)"/>
+  <rect x="0" y="176.4" width="560" height="28.6" fill="#2A3531" clip-path="url(#gv-clip)"/>
+</svg>

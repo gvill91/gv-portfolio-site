@@ -1,0 +1,261 @@
+/* ── Project page ── */
+
+.project-page-bg {
+  background: white;
+  min-height: 100vh;
+}
+
+.project-detail {
+  padding: 3rem 0 4rem;
+}
+
+.project-detail-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.project-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.project-detail-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+
+.project-detail-body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 68ch;
+  margin-bottom: 1rem;
+}
+
+.project-iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 11 / 8;
+  border: none;
+  margin: 2.5rem 0;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-tag {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+}
+
+/* ── Navbar ── */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-nav);
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(245, 236, 215, 0.7);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #F5ECD7;
+}
+
+/* ── Hero ── */
+
+.hero {
+  padding: 5rem 2rem 4rem;
+}
+
+.hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.hero-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-tagline {
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  color: var(--text);
+  line-height: 1.75;
+}
+
+.hero-photo {
+  flex-shrink: 0;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--border);
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  .hero-inner {
+    flex-direction: column-reverse;
+    gap: 2rem;
+  }
+
+  .hero-photo {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* ── Projects ── */
+
+.projects {
+  padding: 5rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.projects-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.projects-heading {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ── */
+
+.card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  box-shadow: 0 2px 10px rgba(42, 53, 49, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(42, 53, 49, 0.15);
+  border-color: var(--accent-sec);
+}
+
+.card-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-thumb {
+  transform: scale(1.04);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.375rem;
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent-sec);
+  transition: color 0.2s;
+}
+
+/* stretch link to cover the whole card */
+.card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.card-link:hover {
+  color: var(--accent);
+}
