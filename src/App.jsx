@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
+import mortgageRatesMeta from './data/mortgage-rates-meta.json'
 
 const PROJECTS = [
   {
@@ -87,7 +88,7 @@ function MortgageRatesPage() {
       <main>
         <article className="project-detail">
           <div className="project-detail-inner">
-            <p className="project-date">February 19, 2026</p>
+            <p className="project-date">Updated: {mortgageRatesMeta.updated}</p>
             <h1 className="project-detail-title">Mortgage Rate Dispersion</h1>
             <p className="project-detail-body">
               My wife called me one afternoon to tell me our five-year-old had been stung by a bee —

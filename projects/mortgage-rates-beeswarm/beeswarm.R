@@ -257,6 +257,10 @@ chart <- girafe(
   )
 )
 
+# Write update date for the project page
+cat(sprintf('{"updated": "%s"}\n', format(Sys.Date(), "%B %d, %Y")),
+    file = "src/data/mortgage-rates-meta.json")
+
 # Save the widget
 out_path <- "public/widgets/mortgage-rates-beeswarm.html"
 saveWidget(
