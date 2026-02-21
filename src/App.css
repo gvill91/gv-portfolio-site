@@ -39,9 +39,10 @@
 .project-iframe {
   display: block;
   width: 100%;
+  max-width: 960px;
   aspect-ratio: 11 / 8;
   border: none;
-  margin: 2.5rem 0;
+  margin: 2.5rem auto;
 }
 
 .project-tags {
