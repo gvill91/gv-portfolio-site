@@ -270,4 +270,12 @@ saveWidget(
 # self-contained HTML document. Strip everything before <!DOCTYPE html>.
 raw   <- readLines(out_path, warn = FALSE)
 start <- which(startsWith(trimws(raw), "<!DOCTYPE html"))[1]
-writeLines(raw[start:length(raw)], out_path)
+html  <- raw[start:length(raw)]
+
+# Inject viewport meta tag so the widget scales correctly on mobile inside an iframe.
+html  <- sub(
+  '<meta charset="utf-8" />',
+  '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1" />',
+  html
+)
+writeLines(html, out_path)
