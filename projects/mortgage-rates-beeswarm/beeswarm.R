@@ -145,7 +145,7 @@ p <- ggplot(
   annotate(
     "text",
     x      = latest_pmms30$pmms30 - 0.8,
-    y      = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.20,
+    y      = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.15,
     label  = paste0("Latest: ", percent(latest_pmms30$pmms30, scale = 1, accuracy = 0.01)),
     hjust  = 0,
     vjust  = 1,
