@@ -96,7 +96,7 @@ function MortgageRatesPage() {
             </p>
             <p className="project-detail-body">
               A beeswarm plot arranges individual data points so they don't overlap, letting you see
-              the full distribution at a glance. In this chart, I used the weekly Primary Mortgage
+              the full distribution at a glance. In this chart, I used Freddie Mac's weekly Primary Mortgage
               Market Survey (PMMS) average rates for 30-year fixed-rate mortgages distributed by
               year. Some years like 2022 had a wide range of rates while other years like 2021 and
               2025 had a much narrower range of rates. I originally created this chart using ggplot2
