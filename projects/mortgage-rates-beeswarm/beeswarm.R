@@ -278,4 +278,12 @@ html  <- sub(
   '<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1" />',
   html
 )
+
+# htmlwidgets sets browser sizing to fill:false (fixed 960px). Override to fill:true
+# so the widget scales to 100% of the iframe width on all screen sizes.
+html  <- gsub(
+  '"browser":\\{"width":[0-9]+,"height":[0-9]+,"padding":[0-9]+,"fill":false\\}',
+  '"browser":{"width":960,"height":500,"padding":40,"fill":true}',
+  html
+)
 writeLines(html, out_path)
