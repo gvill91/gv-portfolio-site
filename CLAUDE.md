@@ -217,6 +217,18 @@ axis.text.x.top     = element_text(margin = margin(b = 8))
 
 ---
 
+## Deployment
+
+- **Live site:** genarovilla.com
+- **DNS / CDN:** Cloudflare (proxies traffic to Vercel)
+- **Host:** Vercel (connected to GitHub repo `gvill91/gv-portfolio-site`)
+- **Deploy trigger:** push to `master` → Vercel auto-builds (`npm run build`) → Cloudflare serves updated site
+- **vercel.json** rewrites all routes to `/index.html` (required for React Router client-side routing)
+
+There is no manual deploy step — every `git push origin master` publishes to genarovilla.com automatically.
+
+---
+
 ## Key Decisions & Preferences
 
 - **No last name in UI** — refer to the owner as "Genaro" only
