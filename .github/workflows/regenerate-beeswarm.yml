@@ -14,25 +14,26 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Install system libraries
+        run: sudo apt-get update && sudo apt-get install -y libmagick++-dev librsvg2-dev
+
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.4.2'
           use-public-rspm: true
 
-      - name: Cache R packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: r-pkgs-${{ runner.os }}-${{ hashFiles('.github/workflows/regenerate-beeswarm.yml') }}
-          restore-keys: r-pkgs-${{ runner.os }}-
-
       - name: Install R packages
         shell: Rscript {0}
         run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/stable/")
-          pak::pkg_install(c("tidyverse", "ggbeeswarm", "ggiraph", "showtext",
-                             "htmlwidgets", "scales", "magick"))
+          pkgs <- c("tidyverse", "ggbeeswarm", "ggiraph", "showtext",
+                    "htmlwidgets", "scales", "magick", "rsvg")
+          install.packages(pkgs, dependencies = TRUE)
+          cat("\nVerifying packages load:\n")
+          invisible(lapply(pkgs, function(p) {
+            library(p, character.only = TRUE)
+            cat(p, "- OK\n")
+          }))
 
       - name: Run R script
         run: Rscript projects/mortgage-rates-beeswarm/beeswarm.R
