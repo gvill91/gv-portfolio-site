@@ -1,40 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 560 235">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 -30 286 164">
 
-  <!-- Dark background baked in — matches chart footer -->
-  <rect x="0" y="-10" width="560" height="235" fill="#2A3531"/>
+  <!-- Dark background baked in — matches chart footer (#2A3531) -->
+  <rect x="-30" y="-30" width="286" height="164" fill="#2A3531"/>
 
   <defs>
-    <clipPath id="gv-chart-clip">
-      <text
-        x="280" y="210"
-        text-anchor="middle"
-        font-family="'Arial Black', Impact, sans-serif"
-        font-weight="900"
-        font-size="280"
-      >GV</text>
-    </clipPath>
+    <linearGradient id="lg" x1="-4" y1="0" x2="230" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"    stop-color="#2A3531"/>
+      <stop offset="16.7%" stop-color="#0C7C7D"/>
+      <stop offset="33.3%" stop-color="#13A29C"/>
+      <stop offset="50%"   stop-color="#FAC030"/>
+      <stop offset="66.7%" stop-color="#F6A723"/>
+      <stop offset="83.3%" stop-color="#EC6C20"/>
+      <stop offset="100%"  stop-color="#CD2922"/>
+    </linearGradient>
+    <filter id="glow-line" x="-50%" y="-100%" width="200%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-dot" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5.5"/>
+    </filter>
   </defs>
 
-  <!-- White outline — thicker stroke for crispness when rasterized small -->
-  <text
-    x="280" y="210"
-    text-anchor="middle"
-    font-family="'Arial Black', Impact, sans-serif"
-    font-weight="900"
-    font-size="280"
-    fill="white"
-    stroke="white"
-    stroke-width="14"
-    stroke-linejoin="round"
-  >GV</text>
+  <!-- Glowing line (blurred behind) -->
+  <polyline
+    points="90,8 8,8 8,102 100,102 100,55 52,55  115,8 162,102 218,8"
+    fill="none" stroke="url(#lg)" stroke-width="18" opacity="0.7"
+    stroke-linejoin="round" stroke-linecap="round"
+    filter="url(#glow-line)"/>
 
-  <!-- 7 stripes — same palette as navbar logo.svg, offset 5px for y=210 baseline -->
-  <rect x="0" y="10"    width="560" height="28.6" fill="#CD2922" clip-path="url(#gv-chart-clip)"/>
-  <rect x="0" y="38.6"  width="560" height="28.6" fill="#EC6C20" clip-path="url(#gv-chart-clip)"/>
-  <rect x="0" y="67.1"  width="560" height="28.6" fill="#F6A723" clip-path="url(#gv-chart-clip)"/>
-  <rect x="0" y="95.7"  width="560" height="28.6" fill="#FAC030" clip-path="url(#gv-chart-clip)"/>
-  <rect x="0" y="124.3" width="560" height="28.6" fill="#13A29C" clip-path="url(#gv-chart-clip)"/>
-  <rect x="0" y="152.9" width="560" height="28.6" fill="#0C7C7D" clip-path="url(#gv-chart-clip)"/>
-  <rect x="0" y="181.4" width="560" height="28.6" fill="#2A3531" clip-path="url(#gv-chart-clip)"/>
+  <!-- Crisp line on top -->
+  <polyline
+    points="90,8 8,8 8,102 100,102 100,55 52,55  115,8 162,102 218,8"
+    fill="none" stroke="url(#lg)" stroke-width="5"
+    stroke-linejoin="round" stroke-linecap="round"/>
 
+  <!-- Dot glows -->
+  <g filter="url(#glow-dot)">
+    <circle cx="90"  cy="8"   r="7" fill="#13A29C"/>
+    <circle cx="8"   cy="8"   r="7" fill="#0C7C7D"/>
+    <circle cx="8"   cy="102" r="7" fill="#0C7C7D"/>
+    <circle cx="100" cy="102" r="7" fill="#FAC030"/>
+    <circle cx="100" cy="55"  r="7" fill="#FAC030"/>
+    <circle cx="52"  cy="55"  r="7" fill="#13A29C"/>
+    <circle cx="115" cy="8"   r="7" fill="#F6A723"/>
+    <circle cx="162" cy="102" r="7" fill="#EC6C20"/>
+    <circle cx="218" cy="8"   r="7" fill="#CD2922"/>
+  </g>
+
+  <!-- Crisp dots: white fill, gradient-matched trim -->
+  <circle cx="90"  cy="8"   r="6.5" fill="white" stroke="#13A29C" stroke-width="2.5"/>
+  <circle cx="8"   cy="8"   r="6.5" fill="white" stroke="#0C7C7D" stroke-width="2.5"/>
+  <circle cx="8"   cy="102" r="6.5" fill="white" stroke="#0C7C7D" stroke-width="2.5"/>
+  <circle cx="100" cy="102" r="6.5" fill="white" stroke="#FAC030" stroke-width="2.5"/>
+  <circle cx="100" cy="55"  r="6.5" fill="white" stroke="#FAC030" stroke-width="2.5"/>
+  <circle cx="52"  cy="55"  r="6.5" fill="white" stroke="#13A29C" stroke-width="2.5"/>
+  <circle cx="115" cy="8"   r="6.5" fill="white" stroke="#F6A723" stroke-width="2.5"/>
+  <circle cx="162" cy="102" r="6.5" fill="white" stroke="#EC6C20" stroke-width="2.5"/>
+  <circle cx="218" cy="8"   r="6.5" fill="white" stroke="#CD2922" stroke-width="2.5"/>
 </svg>

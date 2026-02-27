@@ -45,14 +45,34 @@ df2_minmax <- df2 %>%
 latest_date   <- max(df2$date)
 latest_pmms30 <- df2 %>% filter(date == latest_date)
 
+# Most recent prior date where the rate was at or below the current rate
+lowest_since <- df2 %>%
+  filter(date < latest_date, pmms30 <= latest_pmms30$pmms30) %>%
+  filter(date == max(date))
+lowest_since_label <- format(lowest_since$date, "%b %Y")
+
+# Gradient color for each annotated point (must use same data range as the plot)
+plot_range <- range(df2 %>% filter(year > 2014, date != latest_date) %>% pull(pmms30), na.rm = TRUE)
+latest_color <- scales::gradient_n_pal(c(gv_low, gv_mid, gv_high))(
+  scales::rescale(latest_pmms30$pmms30, from = plot_range)
+)
+lowest_since_color <- scales::gradient_n_pal(c(gv_low, gv_mid, gv_high))(
+  scales::rescale(lowest_since$pmms30, from = plot_range)
+)
+
+# y position of lowest_since in the fct_rev(factor(year)) scale used in the plot
+max_year      <- max(df2 %>% filter(year > 2014) %>% pull(year))
+lowest_since_y <- max_year - lowest_since$year + 1
+
 # ── Theme ─────────────────────────────────────────────────────────────────────
 theme_gv <- function(font = "WixMadeforText", bs = 12, ...) {
   theme_minimal(base_size = bs, base_family = font, ...) +
     theme(
       axis.text        = element_text(color = gv_muted),
       axis.title       = element_text(color = gv_muted),
-      panel.grid.minor = element_blank(),
-      panel.grid.major = element_blank(),
+      panel.grid.minor   = element_blank(),
+      panel.grid.major.y = element_blank(),
+      panel.grid.major.x = element_blank(),
       plot.margin      = margin(0.5, 0.5, 1.2, 0.5, "cm"),
       plot.background  = element_rect(fill = gv_bg, color = NA),
       panel.background = element_rect(fill = gv_bg, color = NA),
@@ -79,6 +99,8 @@ p <- ggplot(
   data = df2 %>% filter(year > 2014, date != latest_date),
   aes(x = pmms30, y = fct_rev(factor(year)))
 ) +
+  # Vertical reference lines at every 1%
+  geom_vline(xintercept = seq(2, 8, by = 1), color = "#DDD0B8", linewidth = 0.4, linetype = 2) +
   # Min/max range band
   geom_rect(
     data = df2_minmax %>% filter(year > 2014),
@@ -144,26 +166,53 @@ p <- ggplot(
   # Latest annotation text
   annotate(
     "text",
-    x      = latest_pmms30$pmms30 - 0.8,
+    x      = latest_pmms30$pmms30 - 1.3,
     y      = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.15,
     label  = paste0("Latest: ", percent(latest_pmms30$pmms30, scale = 1, accuracy = 0.01)),
     hjust  = 0,
     vjust  = 1,
-    color  = gv_dark,
+    color  = latest_color,
     size   = 13/.pt,
-    family = "WixMadeforText"
+    family = "WixMadeforText",
+    fontface = "bold"
   ) +
   # Latest annotation arrow
   geom_curve(
     aes(
-      x    = latest_pmms30$pmms30 - 0.35,
+      x    = latest_pmms30$pmms30 - 0.5,
       y    = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.2,
       xend = latest_pmms30$pmms30,
       yend = as.numeric(fct_rev(factor(latest_pmms30$year)))
     ),
     curvature = -0.4,
     color     = gv_dark,
-    linewidth = 0.4
+    linewidth = 0.4,
+    arrow     = arrow(length = unit(0.08, "inches"), type = "closed")
+  ) +
+  # Lowest-since annotation text
+  annotate(
+    "text",
+    x      = lowest_since$pmms30 - 0.9,
+    y      = lowest_since_y + 1.2,
+    label  = paste0(format(lowest_since$date, "%b %d, %Y"), ": ", percent(lowest_since$pmms30, scale = 1, accuracy = 0.01)),
+    hjust  = 0,
+    vjust  = 1,
+    color  = lowest_since_color,
+    size   = 13/.pt,
+    family = "WixMadeforText",
+    fontface = "bold"
+  ) +
+  geom_curve(
+    aes(
+      x    = lowest_since$pmms30 - 0.1,
+      y    = lowest_since_y + 0.55,
+      xend = lowest_since$pmms30,
+      yend = lowest_since_y
+    ),
+    curvature = -0.4,
+    color     = gv_dark,
+    linewidth = 0.4,
+    arrow     = arrow(length = unit(0.08, "inches"), type = "closed")
   ) +
   scale_x_continuous(labels = scales::percent_format(scale = 1),
                      breaks = seq(1,10,by=0.5),
@@ -182,9 +231,8 @@ p <- ggplot(
   coord_cartesian(clip = "off")
 
 # ── Logo & footer ─────────────────────────────────────────────────────────────
-# chart-logo.svg: viewBox "0 -10 560 235" → 10px padding above cap, 15px below baseline.
-# Dark background baked in; 7-stripe palette matching navbar logo.svg.
-# stroke-width=14 matching navbar. Rendered height scaled 1.4× natural ratio to fill strip.
+# chart-logo.svg: viewBox "-30 -30 286 164" — line-chart GV design, dark background baked in.
+# Same gradient glow palette and dots as navbar logo.svg.
 
 # Footer geometry:
 # The plot panel ends at 0 npc. Below it: x-axis tick labels + x-axis title (~1.2cm),
@@ -214,7 +262,7 @@ logo_grob <- rasterGrob(
   x           = unit(0.99,       "npc"),
   y           = unit(content_y,  "npc"),
   width       = unit(0.07,                    "npc"),
-  height      = unit(0.07 * 235/560 * 1.7,   "npc"),
+  height      = unit(0.07 * 164/286 * 1.7,    "npc"),
   just        = c("right", "center"),
   interpolate = TRUE
 )

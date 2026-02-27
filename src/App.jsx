@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import mortgageRatesMeta from './data/mortgage-rates-meta.json'
-import swingChartMeta from './data/swing-chart-meta.json'
 
 const PROJECTS = [
   {
@@ -10,13 +9,6 @@ const PROJECTS = [
     description: 'Interactive beeswarm chart showing the distribution of 30-year fixed mortgage rates by year.',
     href: '/projects/mortgage-rates',
     thumb: '/mortgage-rates-thumb.png',
-  },
-  {
-    id: 5,
-    title: 'Pandemic House Price Swings by State',
-    description: 'Swing chart tracking cumulative house price growth since February 2020 — showing which states are still climbing and which have pulled back from their peaks.',
-    href: '/projects/swing-chart',
-    thumbBg: '#2A3531',
   },
 ]
 
@@ -30,7 +22,6 @@ function Navbar() {
         <ul className="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#about">About</a></li>
         </ul>
       </div>
     </nav>
@@ -131,48 +122,6 @@ function MortgageRatesPage() {
   )
 }
 
-const SWING_CHART_TAGS = ['R', 'ggplot2', 'Housing', 'Economics', 'State-Level', 'Data Visualization']
-
-function SwingChartPage() {
-  return (
-    <div className="project-page-bg">
-      <Navbar />
-      <main>
-        <article className="project-detail">
-          <div className="project-detail-inner">
-            <p className="project-date">Updated: {swingChartMeta.updated}</p>
-            <h1 className="project-detail-title">Pandemic House Price Swings by State</h1>
-            <p className="project-detail-body">
-              The pandemic supercharged home prices across the country, but the story differs dramatically
-              by state. This swing chart tracks cumulative house price growth since February 2020 for
-              every state, using the Freddie Mac House Price Index (seasonally adjusted).
-            </p>
-            <p className="project-detail-body">
-              States in teal have peaked and begun pulling back — their bar shows how far they've retreated
-              from their high-water mark. States in red are still climbing. Florida and Idaho led the
-              surge, while D.C. saw the most modest gains of any market in the country.
-            </p>
-          </div>
-          <iframe
-            src="/widgets/swing-chart.html"
-            title="Pandemic House Price Swings by State"
-            className="project-iframe"
-            style={{ aspectRatio: '3 / 5' }}
-            scrolling="no"
-          />
-          <div className="project-detail-inner">
-            <div className="project-tags">
-              {SWING_CHART_TAGS.map(tag => (
-                <span key={tag} className="project-tag">{tag}</span>
-              ))}
-            </div>
-          </div>
-        </article>
-      </main>
-    </div>
-  )
-}
-
 function App() {
   return (
     <Routes>
@@ -186,7 +135,6 @@ function App() {
         </>
       } />
       <Route path="/projects/mortgage-rates" element={<MortgageRatesPage />} />
-      <Route path="/projects/swing-chart" element={<SwingChartPage />} />
     </Routes>
   )
 }
