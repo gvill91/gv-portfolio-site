@@ -224,8 +224,8 @@ p <- ggplot(
   labs(
     y     = "Year",
     x     = "30-Year Fixed Mortgage Rate (%)",
-    title = "Mortgage Rate Dispersion by Year",
-    subtitle = "Weekly 30-Year Mortgage Rate Average",
+    title = "Finally Fives!",
+    subtitle = "Weekly 30-Year Mortgage Rate Average by Year",
     caption = NULL  # source credit added as a grob in the footer strip
   ) +
   coord_cartesian(clip = "off")
