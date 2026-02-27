@@ -168,7 +168,7 @@ p <- ggplot(
     "text",
     x      = latest_pmms30$pmms30 - 1.3,
     y      = as.numeric(fct_rev(factor(latest_pmms30$year))) + 0.15,
-    label  = paste0("Latest: ", percent(latest_pmms30$pmms30, scale = 1, accuracy = 0.01)),
+    label  = paste0(format(latest_date, "%b %d, %Y"), ": ", percent(latest_pmms30$pmms30, scale = 1, accuracy = 0.01)),
     hjust  = 0,
     vjust  = 1,
     color  = latest_color,
