@@ -34,9 +34,9 @@ function Hero() {
       <div className="hero-inner">
         <div className="hero-content">
           <p className="hero-tagline">
-            Hi, I'm Genaro — a housing economist by trade and a data storyteller
-            by passion. Here you'll find projects spanning topics I find
-            fascinating. I hope they inspire you to see data differently.
+            Hi, I'm Genaro. I study the housing economy for a living and spend the
+            rest of my time making charts about things I find interesting. Hope you
+            enjoy.
           </p>
         </div>
         <div className="hero-photo">
